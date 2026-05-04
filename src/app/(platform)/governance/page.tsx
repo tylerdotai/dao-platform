@@ -36,6 +36,15 @@ export default async function GovernancePage() {
         </Link>
       </div>
 
+      <div className="flex justify-end">
+        <Link
+          href="/governance/eligibility"
+          className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/5"
+        >
+          Eligibility preview
+        </Link>
+      </div>
+
       <GovernanceList proposals={proposals} />
     </div>
   );
