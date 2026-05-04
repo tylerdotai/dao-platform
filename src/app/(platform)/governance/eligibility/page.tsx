@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { getGovernanceEligibilityPreview } from "@/app/_actions/governance-eligibility";
 import { EligibilityPreview } from "./_components/eligibility-preview";
+import { SyncStubCard } from "./_components/sync-stub-card";
 
 export const metadata: Metadata = {
   title: "Governance Eligibility - Fort Worth TX DAO",
@@ -32,6 +33,7 @@ export default async function GovernanceEligibilityPage() {
       </div>
 
       <EligibilityPreview {...preview} />
+      <SyncStubCard />
     </div>
   );
 }
