@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Scale, Vote, Clock3 } from "lucide-react";
 import { getGovernanceProposal } from "@/app/_actions/governance";
+import { ChairActions } from "./_components/chair-actions";
 
 export const metadata: Metadata = {
   title: "Proposal - Fort Worth TX DAO",
@@ -54,6 +55,7 @@ export default async function GovernanceProposalPage({
           </p>
         </div>
       </div>
+        <ChairActions />
     </div>
   );
 }

@@ -68,3 +68,24 @@ export async function getGovernanceProposalQuery(id: string) {
     return governanceProposalSeed.find((proposal) => proposal.id === id) ?? null;
   }
 }
+
+
+export async function createGovernanceProposalQuery(input: {
+  title: string;
+  summary: string;
+  body?: string;
+  proposalType?: string;
+  proposerId: string;
+}) {
+  const id = crypto.randomUUID();
+  await db.insert(governanceProposals).values({
+    id,
+    title: input.title,
+    summary: input.summary,
+    body: input.body || null,
+    proposalType: input.proposalType || "general",
+    proposerId: input.proposerId,
+    state: "draft",
+  });
+  return id;
+}
