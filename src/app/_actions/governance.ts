@@ -1,11 +1,11 @@
 "use server";
 
-import { governanceProposalSeed } from "@/app/_services/governance/mock-data";
+import { getGovernanceProposalQuery, listGovernanceProposalsQuery } from "@/core/database/queries/governance";
 
 export async function listGovernanceProposals() {
-  return governanceProposalSeed;
+  return listGovernanceProposalsQuery();
 }
 
 export async function getGovernanceProposal(id: string) {
-  return governanceProposalSeed.find((proposal) => proposal.id === id) ?? null;
+  return getGovernanceProposalQuery(id);
 }
