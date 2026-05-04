@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   BookOpen,
   Stamp,
+  Scale,
 } from "lucide-react";
 
 export type NavbarItem = {
@@ -37,6 +38,7 @@ export type NavbarItem = {
 const navigationItems: NavbarItem[] = [
   { id: "dashboard", name: "Dashboard", href: "/dashboard", icon: Home },
   { id: "forums", name: "Forums", href: "/forums", icon: MessageSquare },
+  { id: "governance", name: "Governance", href: "/governance", icon: Scale },
   { id: "bounties", name: "Bounties", href: "/bounties", icon: Trophy },
   {
     id: "innovation-lab",
