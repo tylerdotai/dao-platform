@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, RefreshCcw, Zap } from "lucide-react";
+import { AlertTriangle, Loader2, RefreshCcw, Zap } from "lucide-react";
 import {
   previewGovernanceSyncPlan,
   runGovernanceSync,
@@ -27,13 +27,18 @@ export function SyncStubCard() {
   }
 
   async function handleExecute() {
+    const confirmed = window.confirm(
+      "Execute onchain governance sync? This will attempt to write eligible wallets into the contract allowlist if write env vars are enabled.",
+    );
+    if (!confirmed) return;
+
     setRunning(true);
     setResult(null);
     const response = await runGovernanceSync();
     if (response?.success) {
       if (response.data.executed) {
         setResult(
-          `Onchain sync executed: ${response.data.syncedWalletCount} wallets submitted. Tx: ${response.data.transactionHash}`,
+          `Onchain sync executed: ${response.data.syncedWalletCount} wallets submitted, ${response.data.skippedWalletCount} skipped. Tx: ${response.data.transactionHash}`,
         );
       } else {
         setResult(response.data.reason || "No sync executed.");
@@ -49,8 +54,16 @@ export function SyncStubCard() {
       <div>
         <h2 className="text-lg font-semibold text-white">Onchain sync bridge</h2>
         <p className="mt-2 text-sm leading-6 text-dao-cool">
-          Preview the allowlist sync plan, then execute a real contract sync using the configured governance signer on the feature branch environment.
+          Preview the allowlist sync plan, then execute a real contract sync only if the feature-branch environment has explicit write-enable variables configured.
         </p>
+      </div>
+      <div className="rounded-xl border border-amber-400/20 bg-amber-500/10 p-4 text-sm text-amber-200">
+        <div className="flex items-start gap-2">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>
+            Safety guardrails: invalid addresses are filtered, existing eligible wallets are skipped, chain id can be enforced, and writes are blocked unless <code>GOVERNANCE_ENABLE_SYNC_WRITES=true</code> is set.
+          </p>
+        </div>
       </div>
       <div className="flex flex-wrap gap-3">
         <button
